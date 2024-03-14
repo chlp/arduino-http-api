@@ -32,7 +32,7 @@ void wifiConnect() {
       }
     }
   }
-  delay(3000);
+  delay(250);
   Serial.println("Connected!");
 }
 
@@ -41,4 +41,17 @@ String wifiStatus() {
   char buf[100];
   sprintf(buf, "http://%u.%u.%u.%u (%s, %i dBm)", ip[0], ip[1], ip[2], ip[3], WiFi.SSID(), WiFi.RSSI());
   return String(buf);
+}
+
+String readLineFromRequest(WiFiClient *client) {
+  String currentLine = "";
+  while (client->connected() && client->available()) {
+    char c = client->read();
+    if (c == '\n') {
+      return currentLine;
+    } else if (c != '\r') {
+      currentLine += c;
+    }
+  }
+  return currentLine;
 }
