@@ -25,14 +25,13 @@ void wifiConnect() {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
     status = WiFi.begin(ssid, pass);
-    for (int i = 0; i < 10; i++) {
-      delay(1000);
+    for (int i = 0; i < 40; i++) {
+      delay(250);
       if (status == WL_CONNECTED) {
         break;
       }
     }
   }
-  delay(250);
   Serial.println("Connected!");
 }
 
@@ -41,17 +40,4 @@ String wifiStatus() {
   char buf[100];
   sprintf(buf, "http://%u.%u.%u.%u (%s, %i dBm)", ip[0], ip[1], ip[2], ip[3], WiFi.SSID(), WiFi.RSSI());
   return String(buf);
-}
-
-String readLineFromRequest(WiFiClient *client) {
-  String currentLine = "";
-  while (client->connected() && client->available()) {
-    char c = client->read();
-    if (c == '\n') {
-      return currentLine;
-    } else if (c != '\r') {
-      currentLine += c;
-    }
-  }
-  return currentLine;
 }

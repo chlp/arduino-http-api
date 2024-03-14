@@ -7,6 +7,5 @@
 
 void wifiConnect();
 String wifiStatus();
-String readLineFromRequest(WiFiClient *client);
 
 #endif
