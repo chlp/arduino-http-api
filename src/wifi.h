@@ -3,9 +3,8 @@
 #ifndef WIFI_H
 #define WIFI_H
 
-#include <Arduino.h>
-
-void wifiConnect();
+String wifiIp();
 String wifiStatus();
+void wifiConnect();
 
 #endif
